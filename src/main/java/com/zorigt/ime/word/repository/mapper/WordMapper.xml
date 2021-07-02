@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zorigt.ime.word.repository.mapper.WordMapper">
+    <resultMap id="wordMap" type="com.zorigt.ime.word.model.WordEntity">
+        <id property="id" column="id"/>
+        <result property="str" column="str"/>
+        <result property="length" column="length"/>
+        <result property="frequency" column="frequency"/>
+    </resultMap>
+
+    <sql id="base">
+        `id`,`str`,`length`,`frequency`
+    </sql>
+
+    <select id="queryAllByLengthAndGtFrequency" resultMap="wordMap">
+        select
+        <include refid="base"/>
+        from word
+        where
+        `length` = #{length}
+        and `frequency` <![CDATA[ > ]]> #{gtFrequency}
+        limit #{offset},#{size}
+    </select>
+
+    <select id="queryMaxLengthByFrequency" resultType="int">
+        select max(`length`)
+        from word
+        where frequency <![CDATA[ > ]]> #{gtFrequency};
+    </select>
+
+</mapper>
