@@ -1,4 +1,4 @@
-package com.zorigt.ime.ime.value;
+package com.zorigt.ime.input.method.value;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

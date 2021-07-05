@@ -1,4 +1,4 @@
-package com.zorigt.ime.ime.pool;
+package com.zorigt.ime.input.method.pool;
 
 import org.springframework.stereotype.Component;
 

@@ -55,7 +55,7 @@ public class LetterSplicer {
                             lss.append(letterShape);
                             newWholeLssList.add(lss);
                         } else {
-                            logger.info("ignored:{}", letterShape.toString());
+                            logger.info("ignored:{}", letterShape);
                         }
                     }
                 } else {
@@ -67,7 +67,7 @@ public class LetterSplicer {
                                 lss.append(letterShape);
                                 newWholeLssList.add(lss);
                             } else {
-                                logger.info("ignored:{},{}", clss.toString(), letterShape.toString());
+                                logger.info("ignored:{},{}", clss.toString(), letterShape);
                             }
                         }
                     }

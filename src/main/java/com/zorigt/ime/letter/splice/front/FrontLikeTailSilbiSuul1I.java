@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FrontLikeTailSilbiSuul1I implements SplicingAtFrontRule {
-    private Set<LetterShape> matchShapes = new HashSet<>(16);
+    private final Set<LetterShape> matchShapes = new HashSet<>(16);
 
     private void init() {
         if (!matchShapes.isEmpty()) {

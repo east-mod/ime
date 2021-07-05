@@ -12,7 +12,7 @@ public class GenericResult<T> extends ResultBase {
 
     public GenericResult(T data) {
         this.ret = true;
-        this.retCode = State.success.getCode();
+        this.retCode = State.SUCCESS.getCode();
         this.data = data;
     }
 

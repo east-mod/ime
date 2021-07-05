@@ -10,7 +10,7 @@ import lombok.Setter;
 public class SuccessResult extends ResultBase {
     public SuccessResult() {
         this.ret = true;
-        this.retCode = State.success.getCode();
+        this.retCode = State.SUCCESS.getCode();
     }
 
     public static SuccessResult get() {

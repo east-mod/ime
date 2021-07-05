@@ -1,11 +1,11 @@
-package com.zorigt.ime.ime.controller;
+package com.zorigt.ime.input.method.controller;
 
 import com.zorigt.ime.approximate.matching.SuggestWord;
 import com.zorigt.ime.common.Strings;
 import com.zorigt.ime.common.result.GenericResult;
 import com.zorigt.ime.common.result.ResultBase;
-import com.zorigt.ime.ime.service.InputMethodService;
-import com.zorigt.ime.ime.value.MatchResult;
+import com.zorigt.ime.input.method.service.InputMethodService;
+import com.zorigt.ime.input.method.value.MatchResult;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

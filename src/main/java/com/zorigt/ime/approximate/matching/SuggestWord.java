@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuggestWord implements MountObject {
+public class SuggestWord {
     private String str;
     private int length;
     private long frequency;
@@ -31,11 +31,6 @@ public class SuggestWord implements MountObject {
         this.length = length;
         this.frequency = frequency;
         this.levenshteinD = levenshteinD;
-    }
-
-    @Override
-    public String getString() {
-        return this.str;
     }
 
     @Override

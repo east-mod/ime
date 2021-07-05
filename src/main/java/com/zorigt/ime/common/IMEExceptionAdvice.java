@@ -31,6 +31,6 @@ public class IMEExceptionAdvice {
         ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
         e.printStackTrace(new PrintStream(errorStream));
         logger.error(errorStream.toString());
-        return ErrorResult.get(State.internalServerError);
+        return ErrorResult.get(State.INTERNAL_SERVER_ERROR);
     }
 }

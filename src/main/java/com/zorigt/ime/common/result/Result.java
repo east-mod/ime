@@ -23,7 +23,7 @@ public class Result<T> extends ResultBase {
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
         result.ret = true;
-        result.retCode = State.success.getCode();
+        result.retCode = State.SUCCESS.getCode();
         result.data = data;
         return result;
     }

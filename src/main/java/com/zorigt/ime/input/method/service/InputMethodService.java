@@ -1,4 +1,4 @@
-package com.zorigt.ime.ime.service;
+package com.zorigt.ime.input.method.service;
 
 import com.zorigt.ime.approximate.matching.BurkhardKellerTree;
 import com.zorigt.ime.approximate.matching.ScoreMarker;
@@ -9,8 +9,8 @@ import com.zorigt.ime.common.BatchExecutor;
 import com.zorigt.ime.common.Strings;
 import com.zorigt.ime.filter.KeyFilter;
 import com.zorigt.ime.filter.KeyFilterFactory;
-import com.zorigt.ime.ime.pool.MatchPool;
-import com.zorigt.ime.ime.value.MatchResult;
+import com.zorigt.ime.input.method.pool.MatchPool;
+import com.zorigt.ime.input.method.value.MatchResult;
 import com.zorigt.ime.keyboard.Decomposer;
 import com.zorigt.ime.letter.LetterShapeSequence;
 import com.zorigt.ime.letter.splice.LetterSplicer;
@@ -32,18 +32,12 @@ import java.util.concurrent.Callable;
 public class InputMethodService implements ApplicationRunner {
     private static final transient Logger logger = LoggerFactory.getLogger(InputMethodService.class);
 
-    private static final transient String ROOT_STRING = "ᡥᡪᡱᡪᢝ";
+    private static final transient String ROOT_STRING = "ᡥᡪᡱᡪᢝᡯᡪᢞᡪᢔᡳ";
     private static final transient int DEFAULT_CAPACITY = 64;
     private static final transient int FREQUENCY_BOUND = 6;
 
     @Resource
-    WordRepository wordRepository;
-
-    private final Map<Integer, BurkhardKellerTree> lengthKeyBkMap = new HashMap<>(DEFAULT_CAPACITY);
-
-    private final Decomposer decomposer = new Decomposer();
-
-    private final LetterSplicer letterSplicer = new LetterSplicer();
+    private WordRepository wordRepository;
 
     @Resource
     private KeyFilterFactory keyFilterFactory;
@@ -53,6 +47,12 @@ public class InputMethodService implements ApplicationRunner {
 
     @Resource
     private BlackSequenceService blackSequenceService;
+
+    private final Map<Integer, BurkhardKellerTree> lengthKeyBkMap = new HashMap<>(DEFAULT_CAPACITY);
+
+    private final Decomposer decomposer = new Decomposer();
+
+    private final LetterSplicer letterSplicer = new LetterSplicer();
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
