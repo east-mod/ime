@@ -4,12 +4,12 @@ import com.zorigt.ime.letter.base.*;
 
 public class Letters {
     public static final A A = new A();
-    public static final com.zorigt.ime.letter.base.E E = new E();
-    public static final com.zorigt.ime.letter.base.I I = new I();
-    public static final com.zorigt.ime.letter.base.O O = new O();
-    public static final com.zorigt.ime.letter.base.U U = new U();
+    public static final E E = new E();
+    public static final I I = new I();
+    public static final O O = new O();
+    public static final U U = new U();
 
-    public static final com.zorigt.ime.letter.base.N N = new N();
+    public static final N N = new N();
     public static final B B = new B();
     public static final P P = new P();
     public static final H H = new H();
