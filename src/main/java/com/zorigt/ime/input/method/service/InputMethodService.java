@@ -27,6 +27,8 @@ import javax.annotation.Resource;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 @Component
 public class InputMethodService implements ApplicationRunner {
@@ -120,7 +122,7 @@ public class InputMethodService implements ApplicationRunner {
         }
 
         Map<String, SuggestWord> suggestWordMap = new HashMap<>(256);
-        List<Callable<Void>> tasks = new ArrayList<>();
+        List<Callable<List<SuggestWord>>> tasks = new ArrayList<>();
         for (List<String> latinSequence : decomposedLatinSequences) {
             List<LetterShapeSequence> letterShapeSequenceList = letterSplicer.fuzzy(latinSequence);
             if (letterShapeSequenceList == null || letterShapeSequenceList.isEmpty()) {
@@ -138,22 +140,29 @@ public class InputMethodService implements ApplicationRunner {
                         blackSequenceService.add(s);
                         return null;
                     }
-                    synchronized (suggestWordMap) {
-                        for (SuggestWord sw : partSuggestWord) {
-                            SuggestWord tmp = suggestWordMap.get(sw.getStr());
-                            if (tmp != null && tmp.getScore() > sw.getScore()) {
-                                continue;
-                            }
-                            if (keyFilter == null || keyFilter.accept(sw.getStr())) {
-                                suggestWordMap.put(sw.getStr(), sw);
-                            }
-                        }
-                    }
-                    return null;
+                    return partSuggestWord.stream().filter((sw) -> keyFilter == null || keyFilter.accept(sw.getStr()))
+                            .collect(Collectors.toList());
                 });
             }
         }
-        matchPool.execute(tasks);
+        List<Future<List<SuggestWord>>> futures = matchPool.execute(tasks);
+        try {
+            for (Future<List<SuggestWord>> future : futures) {
+                List<SuggestWord> subList = future.get();
+                if (CollectionUtils.isEmpty(subList)) {
+                    continue;
+                }
+                for (SuggestWord sw : subList) {
+                    SuggestWord tmp = suggestWordMap.get(sw.getStr());
+                    if (tmp != null && tmp.getScore() > sw.getScore()) {
+                        continue;
+                    }
+                    suggestWordMap.put(sw.getStr(), sw);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         List<SuggestWord> suggestWordList = new ArrayList<>(suggestWordMap.values());
         suggestWordList.sort((o1, o2) -> Float.compare(o2.getScore(), o1.getScore()));
