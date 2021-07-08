@@ -5,8 +5,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 
 public class BurkhardKellerTree {
     private final Node root;
@@ -85,11 +86,11 @@ public class BurkhardKellerTree {
 
         private final MountObject mountObject;
 
-        private final TreeMap<Integer, Node> children;
+        private final Map<Integer, Node> children;
 
         public Node(final MountObject mountObject) {
             this.mountObject = mountObject;
-            this.children = new TreeMap<>();
+            this.children = new HashMap<>();
         }
 
         public void putChild(final int distance, final Node child) {
