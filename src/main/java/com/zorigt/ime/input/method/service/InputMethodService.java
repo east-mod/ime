@@ -34,7 +34,7 @@ public class InputMethodService implements ApplicationRunner {
 
     private static final transient String ROOT_STRING = "ᡥᡪᡱᡪᢝᡯᡪᢞᡪᢔᡳ";
     private static final transient int DEFAULT_CAPACITY = 64;
-    private static final transient int FREQUENCY_BOUND = 6;
+    private static final transient int FREQUENCY_BOUND = 44;
 
     @Resource
     private WordRepository wordRepository;
@@ -56,7 +56,7 @@ public class InputMethodService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        int maxLength = wordRepository.queryMaxLength(FREQUENCY_BOUND - 1);
+        int maxLength = wordRepository.queryMaxLength(FREQUENCY_BOUND);
 
         while (maxLength > 0) {
             BurkhardKellerTree bkTree = lengthKeyBkMap.get(maxLength);
@@ -67,7 +67,7 @@ public class InputMethodService implements ApplicationRunner {
             BurkhardKellerTree bk = bkTree;
             int curLength = maxLength;
             BatchExecutor.queryAll((pageNum, pageSize) -> {
-                List<WordEntity> wordEntityList = wordRepository.queryAll(curLength, 45, pageNum, pageSize);
+                List<WordEntity> wordEntityList = wordRepository.queryAll(curLength, FREQUENCY_BOUND, pageNum, pageSize);
                 if (CollectionUtils.isEmpty(wordEntityList)) {
                     return 0;
                 }

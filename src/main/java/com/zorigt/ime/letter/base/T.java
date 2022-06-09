@@ -29,7 +29,7 @@ public class T extends Letter {
     private LetterShape createTMiddleTSenj() {
         LetterShape ls = new LetterShape(latinKey, Strings.valueOf(ZCode.t_senj), LetterLocation.MIDDLE);
 
-        ls.setSevereBehindAtRule(BehindRuleHolder.BEHIND_IS_NOT_EHSHIG);
+//        ls.setSevereBehindAtRule(BehindRuleHolder.BEHIND_IS_NOT_EHSHIG);
 
         return ls;
     }
